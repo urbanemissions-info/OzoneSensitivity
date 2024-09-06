@@ -1,6 +1,11 @@
 # OzoneSensitivity
 
-## Literature survey
+## Table of Contents
+1. [Literature Survey](#literaturesurvey)
+2. [Dataset](#dataset)
+3. [Method](#method)
+
+## Literature survey <a name="literaturesurvey"></a>
 
 #### Examining TROPOMI formaldehyde to nitrogen dioxide ratios in the Lake Michigan region: implications for ozone exceedances
 
@@ -21,8 +26,31 @@
 | FNR > 4.1 | NOx-sensitive |
 (Jin et al,. (2020))
 
+#### Mirrezaei - Ozone production over arid regions
 
-## Dataset
+1. They used OMI data as well, apart from TROPOMI
+2. Aridity Index (AI) - to determine the level of aridity of a region. It is calculated by dividing Mean Annual precipitation by Mean Annual Reference Evapotranspiration (PET). Global Aridity Index has this data. 
+
+| AI  |  Aridity |
+|---|---|
+| AI < 0.03 | Hyper-arid |
+| 0.03 < AI < 0.2 | Arid |
+| 0.2 < AI < 0.5 | Semi-Arid |
+| 0.5 < AI < 0.65 | Dry sub-humid |
+| 0.65 < AI | Humid |
+| 0.65 > AI | Drylands |
+As per UNEP
+
+3. Delhi is a dryland
+4. More aridity (and elevated temperatures) => More ozone concentration, through acceleration of photochemical reactions. But, Elevated humidity levels have potential to enhance clouds and act as a proxy for HOx -- whihc may result in the efficiency of photochemical reactions.
+5. Issues with satellite based FNR Ratio: errors in satellite retrievals, lack of vertically resolved data, use of constant FNR thresholds on satellite retrievals may increase uncertainty.
+6. Major issue: uncertain correlation between HCHO and surface level organic reactivity. (for it to act as proxy to VOCs)
+7. Relative impact of meteorological conditions on ozone production is less in dry areas.
+8. Paper investigated the change in ozone regime during COVID19 lockdown. 
+9. Data Quality - No discussion on cloud cover. QA as used in GEE L3. 
+
+
+## Dataset <a name="dataset"></a>
 
 ### Google Earth Engine L3 prooduct of S5P TROPOMI
 
@@ -44,3 +72,8 @@ The conversion to L3 is done by the harpconvert tool using the bin_spatial opera
 
 #### Issues with this data
 1. **HCHO**: -0.0172 mol/m^2
+
+## Method  <a name="method"></a>
+
+1. [FNR Script - GEE](https://code.earthengine.google.com/a388006ea7b1e9c83005c1d53d5afd9e): This script is used to download the FNR tif for each month and season for the city of Delhi. 50 Cloud fraction is used in consistence with literature. All these FNR tifs are placed in the folder `data\FNR`
+2. `FNR plots.ipynb` in the `scripts` folder plots the FNR as a PNG by considering 2.2-3.7 as the transition zone.
